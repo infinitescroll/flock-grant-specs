@@ -42,7 +42,8 @@ const hasProfile = await profile.exists();
 
 ```js
 const profile = await profile.get();
-// returns a profile object (example in the next section)
+// > profile object (example in the next section)
+// > null (if no profile exists)
 ```
 
 ### Create a profile for the user
@@ -53,9 +54,37 @@ const profileCreated = await profile.create();
 // > false (and/or error?) if profile is not created
 ```
 
-### Setting profile information
+### Modifying the entire profile at once (dangerous)
+
+You might use this method once, after initial profile save
 
 ```js
 const newProfile = await profile.modify(profile);
-// returns the new profile
+// > profile object (example in the next section)
+```
+
+### Setting specific fields in a profile (safe)
+
+```js
+const newProfile = await profile.set(field, value);
+```
+
+## A profile object
+
+```js
+{
+  "@context": "http://schema.org/Person",
+  "@type": "Person",
+  "ethereumAddress": "<ETHEREUM ADDRESS>",
+  "familyName": "<LAST NAME>",
+  "givenName": "<FIRST NAME>",
+  "affiliation": [
+
+  ]
+  "image:" [
+    "@context": "http://schema.org",
+    "@type": "ImageObject",
+    "contentUrl": "<FULL URL PATH>"
+  ]
+}
 ```
