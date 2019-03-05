@@ -112,7 +112,7 @@ const newProfile = await profile.set(field, value);
       "legalName": "<Name of Organization"
     }
   ],
-  "affiliation": [ // used for DAO membership
+  "affiliation": [ // used for DAO membership && Github organizations
     {
       "@context": "http://schema.org/Organization",
       "@type": "Organization",
