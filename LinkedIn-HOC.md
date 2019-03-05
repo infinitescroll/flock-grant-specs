@@ -1,6 +1,6 @@
 # Pulling LinkedIn Data HOC Documentation
 
-The LinkedIN API will be required by the autark/profiles app and used to get user info from LinkedIN. Must be used in tandem with the auth-server (coming soon)
+The LinkedIn-HOC will be required by the autark/profiles app and used to get user info from LinkedIN. Must be used in tandem with the auth-server (coming soon)
 
 This will be a higher order component that passes the linkedIn access token to the callback passed to the HOC
 
@@ -15,7 +15,7 @@ $ npm install autark-linkedin-hoc
 ### Import methods from autark-linkedin-hoc into your project
 
 ```js
-import LinkedIn from 'autark-linkedin-hoc';
+import LinkedIn, { getLinkedInData } from 'autark-linkedin-hoc';
 ```
 
 ## Process
@@ -37,6 +37,8 @@ When a user wants to integrate their LinkedIn information into, the following st
 This library handles 1, 4, and 8
 
 ## Usage
+
+### Auth
 
 The LinkedIn HOC takes two arguments - a component that you want to get rendered (like a button) and a callback to get invoked with the access token.
 
@@ -62,4 +64,10 @@ When the access token is granted by LinkedIn and received by the client, we invo
   access_token: <String>,
   expires: <String>
 }
+```
+
+### Fetching Data
+
+```js
+const dataFromLI = await getLinkedInData(access_token);
 ```
