@@ -21,7 +21,9 @@ import Profile from 'autark-profile-api';
 ### Create a new profile instance, passing an ethereum address
 
 ```js
-const profile = new Profile(ethereumAddress);
+const profile = new Profile(ethereumAddress, web3Provider);
+// initialize async variables
+await profile.init();
 ```
 
 ## Using autark-profile-api in your project
@@ -82,7 +84,7 @@ const newProfile = await profile.set(field, value);
       "propertyID": "EthereumAddress",
       "value": "<EthereumAddress>"
     },
-    { // same Q as above ^^
+    {
       // we can do each integration as its own property value
       "@context": "https://schema.org/PropertyValue",
       "@type": "PropertyValue",
@@ -112,7 +114,7 @@ const newProfile = await profile.set(field, value);
       "legalName": "<Name of Organization"
     }
   ],
-  "affiliation": [ // used for DAO membership && Github organizations
+  "affiliation": [ // used for DAO memberships && Github organizations
     {
       "@context": "http://schema.org/Organization",
       "@type": "Organization",
