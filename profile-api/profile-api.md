@@ -22,13 +22,19 @@ import Profile from 'autark-profile-api';
 
 ```js
 const profile = new Profile(ethereumAddress, web3Provider);
-// initialize async variables
-await profile.init();
 ```
 
 ## Using autark-profile-api in your project
 
 All instance methods support promises and async/await. This documentation uses async/await.
+
+### Get a public profile (does not require opening box first)
+
+_NOTE_ - if the box has been unlocked, this `get` call will also return the private profile variables. If the box has not yet been unlocked, we're going to get the public profile
+
+```js
+const publicProfile = await profile.get();
+```
 
 ### Determine if a user has a profile or not
 
@@ -40,12 +46,13 @@ const hasProfile = await profile.exists();
 // > false if the user does not have a profile
 ```
 
-### Get a user's profile
+### Unlock the profile (REQUIRED before calling any of the methods below)
+
+Invokes a signature request
 
 ```js
-const profile = await profile.get();
-// > profile object (example in the next section)
-// > null (if no profile exists)
+// initialize async variables
+await profile.unlock();
 ```
 
 ### Create a profile for the user
