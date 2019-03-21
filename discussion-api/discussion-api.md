@@ -25,6 +25,17 @@ The following steps are required in order to POST discussion data:
 6. User can attach the JWT token to as a header to POST requests under the Authorization header: `{ Authorization: Bearer <token> }`
 7. Auth token will expire after {time - TBD}
 
+ANOTHER OPTION (need research to determine if this is as secure):
+
+1. ask the user to sign {message - TBD}
+2. User signs message
+3. Cache signature, message, and address used to sign in aragon cache
+4. When client sends `POST` request to server, send the signature, message, and address used to sign in the payload or headers (tbd)
+5. Server valides signature
+6. Server completes POST request
+
+If this is just as secure ^^ then we remove the steps of using JWT auth
+
 ### Routes
 
 ##### Get Conversation about an ethereum transaction
@@ -56,7 +67,7 @@ This will return a conversation with all its comments:
     {
       "@id": '<endpoint>/api/v0/conversation/<txHash>/comment/<cid>',
       "@context": 'http://schema.org/',
-      "@type": 'Conversation',
+      "@type": 'Comment',
       parentItem: '<endpoint>/api/v0/conversation/<txHash>',
       author: {
         "@context": "http://schema.org/",
@@ -120,7 +131,7 @@ returns a comment:
 {
   "@id": '<endpoint>/api/v0/conversation/<txHash>/comment/<cid>',
   "@context": 'http://schema.org/',
-  "@type": 'Conversation',
+  "@type": 'Comment',
   parentItem: '<endpoint>/api/v0/conversation/<txHash>',
   author: <Person>,
   dateModified: <Date>,
@@ -131,3 +142,19 @@ returns a comment:
 ```
 
 ##### POST Comment to a Conversation
+
+Following the auth steps at the beginning of this document, an Authorization header or signature will need to be included in every post request to validate signatures
+
+```js
+{
+  "@id": '<endpoint>/api/v0/conversation/<txHash>/comment/<cid>',
+  "@context": 'http://schema.org/',
+  "@type": 'Comment',
+  parentItem: '<endpoint>/api/v0/conversation/<txHash>',
+  author: <Person>,
+  mentions: [<Person>, <Person>], // keep this out for v1
+  text: <String>
+},
+```
+
+Later on to allow for reddit style deeply nested replies, `parentItem` can be another `Comment`. For now we're keeping `parentItem` as a Conversation and allowing only 1 level of nesting
