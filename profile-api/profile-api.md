@@ -128,8 +128,8 @@ school(s)
 {
   "@context": "http://schema.org/",
   "@type": "Person",
-  "identifier": [
-    { // is this better than just putting an ethereum address on the base layer?
+  "identifier": [ // will be used for github and twitter proofs
+    {
       "@context": "https://schema.org/",
       "@type": "PropertyValue",
       "propertyID": "EthereumAddress",
@@ -147,16 +147,16 @@ school(s)
     "name": "<NAME OF EMPLOYER>"
   },
   "affiliation": [{
-    "@type": "Organization",
+    "@type": "School",
     "@context": "http://schema.org/",
     "name": "<NAME OF SCHOOL>"
   }],
-  "mainEntityOfPage": {
-    "@type": "WebPage",
+  "url": "<WEBSITE>",
+  "homeLocation": {
     "@context": "http://schema.org/",
-    "@id": "http://cathscafe.example.com/"
+    "@type": "Residence",
+    "name": "<Name of location>",
   },
-  "homeLocation": "<LOCATION>",
   "image": {
     "@context": "http://schema.org/",
     "@type": "ImageObject",
@@ -169,71 +169,6 @@ school(s)
 {
   "@type": "ImageObject",
   "contentUrl": "<FULL URL PATH TO IMAGE>"
-}
-```
-
-Extended:
-
-```js
-{
-  "@context": "http://schema.org/",
-  "@type": "Person",
-  "identifier": [
-    { // is this better than just putting an ethereum address on the base layer?
-      "@context": "https://schema.org/PropertyValue",
-      "@type": "PropertyValue",
-      "propertyID": "EthereumAddress",
-      "value": "<EthereumAddress>"
-    },
-    {
-      // we can do each integration as its own property value
-      "@context": "https://schema.org/PropertyValue",
-      "@type": "PropertyValue",
-      "propertyID": "Twitter",
-      "value": "<Twitter Handle>",
-      "valueReference": "<DID>"
-    },
-  ],
-  "familyName": "<LAST NAME>",
-  "givenName": "<FIRST NAME>",
-  "email": "<EMAIL>",
-  "description": "<BIO>",
-  /* NOT SURE ABOUT ALUMNI OF VS MEMBER OF VS AFFILIATION (think we just go with affiliation) */
-  "alumniOf": [ // used for previous schools and jobs
-    {
-      "@context": "http://schema.org/Organization",
-      "@type": "Organization",
-      "address": "<Address>",
-      "legalName": "<Name of Organization"
-    }
-  ],
-  // SHOULD MEMBEROF AND AFFILIATION BE THE SAME THING?
-  "memberOf": [ // used for current education and jobs
-    {
-      "@context": "http://schema.org/Organization",
-      "@type": "Organization",
-      "address": "<Address>",
-      "legalName": "<Name of Organization"
-    }
-  ],
-  "affiliation": [ // used for DAO memberships && Github organizations
-    {
-      "@context": "http://schema.org/Organization",
-      "@type": "Organization",
-      "legalName": "<Name of Organization",
-      "logo": {
-        "@context": "http://schema.org/ImageObject",
-        "@type": "ImageObject",
-        "contentUrl": "<FULL URL PATH TO IMAGE>"
-      }
-    }
-  ],
-  "image:" [{
-    "@context": "http://schema.org/ImageObject",
-    "@type": "ImageObject",
-    "contentUrl": "<FULL URL PATH TO IMAGE>"
-  }],
-  "jobTitle": "<TITLE>", // used for current job title (might be redundant for memberOf)
 }
 ```
 
